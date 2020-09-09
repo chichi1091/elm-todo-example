@@ -1,2 +1,4 @@
 {
+    "elm.formatCommand": "/Users/chichi1091/Documents/Elm/todo-exmaple/node_modules/.bin/elm-format",
+    "elm.formatOnSave": true
 }

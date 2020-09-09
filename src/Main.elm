@@ -19,9 +19,7 @@ type alias Task =
   }
 
 type alias Model = 
-  {
-    todoList : List Task
-  }
+  { todoList : List Task }
 
 init: Model
 init =
