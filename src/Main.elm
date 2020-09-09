@@ -2,7 +2,8 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (Html, text, div, button)
+import Html exposing (Html, text, div, button, table)
+import Html exposing (tr, th, td, thead, tbody, thead)
 import Html.Events exposing (onClick)
 
 main =
@@ -11,31 +12,63 @@ main =
 
 -- MODEL
 
-type alias Model = Int
+type alias Task =
+  {
+    id: Int,
+    task: String
+  }
+
+type alias Model = 
+  {
+    todoList : List Task
+  }
 
 init: Model
-init = 0
+init =
+  {
+    todoList = [
+      { id = 1, task = "task1"}
+      ,{ id = 2, task = "task2"}
+    ]
+  }
 
 -- UPDATE
 
-type Msg = Increment | Decrement
+type Msg = Add
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-    Increment ->
-      model + 1
+    Add ->
+      { model | todoList = {id = 3, task = "task3"} :: model.todoList}
     
-    Decrement ->
-      model - 1
-
 
 -- VIEW
 
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ onClick Decrement ] [ text "-"]
-    , div [] [ text (String.fromInt model) ]
-    , button [ onClick Increment ] [ text "+"]
+    [
+      div []
+        [ table []
+          [ thead []
+            [ tr []
+              [ th [] [text "ID"]
+              , th [] [text "TASK"]
+              ]
+            ]
+          ]
+          , tbody [] (todoRow model.todoList)
+        ]
     ]
+
+todoRow : List Task -> List (Html Msg)
+todoRow todos =
+  let
+    show (todo) = tr []
+      [ td [] [text (String.fromInt todo.id)]
+      , td [] [text todo.task]
+      ]
+
+  in
+    List.map show todos
