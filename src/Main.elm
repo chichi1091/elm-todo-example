@@ -23,12 +23,13 @@ type alias Task =
 
 
 type alias Model =
-    { todoList : List Task }
+    { maxId : Int, todoList : List Task }
 
 
 init : Model
 init =
-    { todoList =
+    { maxId = 0
+    , todoList =
         [ { id = 1, task = "task1" }
         , { id = 2, task = "task2" }
         ]
@@ -47,7 +48,7 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Add ->
-            { model | todoList = { id = 3, task = "task3" } :: model.todoList }
+            { model | maxId = model.maxId + 1, todoList = { id = model.maxId + 1, task = "task3" } :: model.todoList }
 
 
 
